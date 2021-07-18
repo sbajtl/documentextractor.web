@@ -20,11 +20,42 @@ class Camera {
 
         streamContainer.appendChild(this.video)
         document.body.appendChild(streamContainer)
+    }
 
+    getEumerateDevices(){
+        navigator.mediaDevices.enumerateDevices().then((devices) => {
+            this.videoSourcesSelect = document.getElementById("video-source");
+        
+            // Iterate over all the list of devices (InputDeviceInfo and MediaDeviceInfo)
+            devices.forEach((device) => {
+                let option = new Option();
+                option.value = device.deviceId;
+        
+                // According to the type of media device
+                switch(device.kind){
+                    // Append device to list of Cameras
+                    case "videoinput":
+                        option.text = device.label || `Camera ${this.videoSourcesSelect.length + 1}`;
+                        this.videoSourcesSelect.appendChild(option);
+                        break;
+                }
+        
+                //console.log(device);
+            });
+        }).catch(function (e) {
+            console.log(e.name + ": " + e.message);
+        });
     }
 
     startCamera(){
-        navigator.mediaDevices.getUserMedia({video: true, audio: false}).then((stream) => {
+        const videoSource = this.videoSourcesSelect.value;
+        const constraints = {
+            audio: false,
+            video: {
+                deviceId: videoSource ? {exact: videoSource} : undefined
+            }
+        };
+        navigator.mediaDevices.getUserMedia(constraints).then((stream) => {
             this.video.srcObject = stream;
             // Let's start drawing the canvas!
             this.update();
