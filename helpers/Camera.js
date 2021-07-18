@@ -22,7 +22,7 @@ class Camera {
         document.body.appendChild(streamContainer)
     }
 
-    getEumerateDevices(){
+    setDevicesList(){
         navigator.mediaDevices.enumerateDevices().then((devices) => {
             this.videoSourcesSelect = document.getElementById("video-source");
         
