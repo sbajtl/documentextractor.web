@@ -7,6 +7,7 @@ class Camera {
         // "hidden div" hack for dynamic loading.
         let streamContainer = document.createElement('div')
         this.video = document.createElement('video')
+        this.video.id = "video"
 
         // If we don't do this, the stream will not be played.
         // By the way, the play and pause controls work as usual

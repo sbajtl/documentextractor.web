@@ -6,12 +6,37 @@ const context = canvas.getContext("2d");
 const camera = new Camera(context, processVideo);
 camera.setDevicesList();
 
+function calculateSize(srcSize, dstSize) {
+    var srcRatio = srcSize.width / srcSize.height;
+    var dstRatio = dstSize.width / dstSize.height;
+    if (dstRatio > srcRatio) {
+      return {
+        width:  dstSize.height * srcRatio,
+        height: dstSize.height
+      };
+    } else {
+      return {
+        width:  dstSize.width,
+        height: dstSize.width / srcRatio
+      };
+    }
+  }
+
 /***
  *
  * @param video
  */
 function processVideo(video){
-    context.drawImage(video, 0, 0);
+    canvas.width = canvas.scrollWidth;
+  canvas.height = canvas.scrollHeight;
+  if (video.readyState === video.HAVE_ENOUGH_DATA) {
+    var videoSize = { width: video.videoWidth, height: video.videoHeight };
+    var canvasSize = { width: canvas.width, height: canvas.height };
+    var renderSize = calculateSize(videoSize, canvasSize);
+    var xOffset = (canvasSize.width - renderSize.width) / 2;
+    context.drawImage(video, xOffset, 0, renderSize.width, renderSize.height);
+  }
+    //context.drawImage(video, 0, 0);
     let image = context.getImageData(0, 0, canvas.width, canvas.height);
 
     if(wasmWorker){
