@@ -66,10 +66,12 @@ class Camera {
     }
 
     stopCamera() {
-        // Pause video node
-        this.video.pause();
-        // Stop media stream
-        this.video.srcObject.getTracks()[0].stop();
+        if (this.video.srcObject){
+            // Pause video node
+            this.video.pause();
+            // Stop media stream
+            this.video.srcObject.getTracks()[0].stop();
+        }
     }
 
     // As soon as we can draw a new frame on the canvas, we call the `draw` function

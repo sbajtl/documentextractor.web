@@ -1,6 +1,7 @@
 let wasmWorker = new Worker('wasm-worker.js');
 let detectedZone;
 let cameraStopped = false;
+let image;
 const canvas = document.getElementById('canvas');
 const context = canvas.getContext("2d");
 const camera = new Camera(context, processVideo);
@@ -37,7 +38,7 @@ function processVideo(video){
     context.drawImage(video, xOffset, 0, renderSize.width, renderSize.height);
   }
     //context.drawImage(video, 0, 0);
-    let image = context.getImageData(0, 0, canvas.width, canvas.height);
+    image = context.getImageData(0, 0, canvas.width, canvas.height);
 
     if(wasmWorker){
         wasmWorker.postMessage({'cmd': 'processFrame', 'image': image});
