@@ -64,6 +64,7 @@ class WasmHelper {
         //postMessage({'cmd': 'drawProcessedFrame', 'image': imageData},[imageData.data.buffer]);
         postMessage({'cmd': 'setDetectedZone', 'zone': zoneToSend});
         Module.destroy(extractor);
+        
         console.timeEnd('ProcessFrame')
     }
 };
