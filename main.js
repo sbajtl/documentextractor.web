@@ -97,7 +97,7 @@ async function onRuntimeInitialized() {
  * @param zone
  */
 function setDetectedZone(zone){
-    console.log("Detected zone", zone)
+    //console.log("Detected zone", zone)
     detectedZone = zone
 }
 
