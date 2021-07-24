@@ -82,7 +82,5 @@ class Camera {
             requestAnimationFrame(loop)
         }
         requestAnimationFrame(loop)
-        setTimeout(loop, 50);
-
     }
 }

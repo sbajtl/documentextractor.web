@@ -3,7 +3,7 @@ let detectedZone;
 let cameraStopped = false;
 let image;
 const canvas = document.getElementById('canvas');
-const context = canvas.getContext("2d");
+const context = canvas.getContext("2d", { alpha: false });
 const camera = new Camera(context, processVideo);
 camera.setDevicesList();
 
@@ -30,6 +30,8 @@ function calculateSize(srcSize, dstSize) {
 function processVideo(video){
     canvas.width = canvas.scrollWidth;
     canvas.height = canvas.scrollHeight;
+    context.clearRect(0, 0, canvas.width, canvas.height);
+
     if (video.readyState === video.HAVE_ENOUGH_DATA) {
         var videoSize = { width: video.videoWidth, height: video.videoHeight };
         var canvasSize = { width: canvas.width, height: canvas.height };
