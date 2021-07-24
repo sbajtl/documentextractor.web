@@ -26,12 +26,12 @@ class Camera {
     setDevicesList(){
         navigator.mediaDevices.enumerateDevices().then((devices) => {
             this.videoSourcesSelect = document.getElementById("video-source");
-        
+
             // Iterate over all the list of devices (InputDeviceInfo and MediaDeviceInfo)
             devices.forEach((device) => {
                 let option = new Option();
                 option.value = device.deviceId;
-        
+
                 // According to the type of media device
                 switch(device.kind){
                     // Append device to list of Cameras
@@ -40,7 +40,7 @@ class Camera {
                         this.videoSourcesSelect.appendChild(option);
                         break;
                 }
-        
+
                 //console.log(device);
             });
         }).catch(function (e) {
@@ -77,14 +77,8 @@ class Camera {
     // As soon as we can draw a new frame on the canvas, we call the `draw` function
     // we passed as a parameter.
     update() {
-        let last = Date.now()
         let loop = () => {
-            // For some effects, you might want to know how much time is passed
-            // since the last frame; that's why we pass along a Delta time `dt`
-            // variable (expressed in milliseconds)
-            let dt = Date.now() - last
-            this.callback(this.video, dt)
-            last = Date.now()
+            this.callback(this.video)
             requestAnimationFrame(loop)
         }
         requestAnimationFrame(loop)
