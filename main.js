@@ -3,7 +3,7 @@ let detectedZone;
 let cameraStopped = false;
 let image;
 const canvas = document.getElementById('canvas');
-const context = canvas.getContext("2d", { alpha: false });
+const context = canvas.getContext("2d");
 const camera = new Camera(context, processVideo);
 camera.setDevicesList();
 
