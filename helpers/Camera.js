@@ -8,6 +8,10 @@ class Camera {
         let streamContainer = document.createElement('div')
         this.video = document.createElement('video')
         this.video.id = "video"
+        this.video['style']['transform'] = 'scale(0.0001,0.0001)';
+        this.video['style']['position'] = 'fixed';
+        this.video['style']['bottom'] = '0px';
+        this.video['style']['right'] = '0px';
 
         // If we don't do this, the stream will not be played.
         // By the way, the play and pause controls work as usual
