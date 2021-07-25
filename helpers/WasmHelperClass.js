@@ -1,3 +1,4 @@
+let extractor;
 class WasmHelper {
 
     constructor() {
@@ -25,19 +26,21 @@ class WasmHelper {
         } else {
             this._frame_bytes.set(image.data);
         }
+        
         let extractor = new Module.Extractor();
         let zone = extractor.detectMrzZone(this._frame_bytes.byteOffset, image.width, image.height);
         //this.Free(this._frame_bytes);
 
-        let zoneToSend = {
-            x: zone.get_x(),
-            y: zone.get_y(),
-            width: zone.get_width(),
-            height: zone.get_height()
-        }
-
         //postMessage({'cmd': 'drawProcessedFrame', 'image': imageData},[imageData.data.buffer]);
-        postMessage({'cmd': 'setDetectedZone', 'zone': zoneToSend});
+        postMessage({'cmd': 'setDetectedZone', 'zone':
+            {
+                x: zone.get_x(),
+                y: zone.get_y(),
+                width: zone.get_width(),
+                height: zone.get_height()
+            }
+        });
+        
         Module.destroy(zone);
         Module.destroy(extractor);
         console.timeEnd('ProcessFrame')
