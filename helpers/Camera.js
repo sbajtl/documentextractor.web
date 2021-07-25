@@ -12,12 +12,9 @@ class Camera {
         // If we don't do this, the stream will not be played.
         // By the way, the play and pause controls work as usual
         // for streamed videos.
-        //this.video.setAttribute('autoplay', '1')
-        //this.video.setAttribute('playsinline', '1') // important for iPhones
-
-        this.video.setAttribute('autoplay', '');
-        this.video.setAttribute('muted', '');
-        this.video.setAttribute('playsinline', '');
+        this.video.setAttribute('autoplay', '1')
+        this.video.setAttribute('muted', '1');
+        this.video.setAttribute('playsinline', '1') // important for iPhones
 
         // The video should fill out all of the canvas
         this.video.setAttribute('width', 1)
