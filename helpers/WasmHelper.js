@@ -1,8 +1,7 @@
 /**
- *
- * @param typedArray
- * @returns {*}
- * @constructor
+ * 
+ * @param {*} typedArray 
+ * @returns 
  */
  function ToHeap(typedArray) {
     const numBytes = typedArray.length * typedArray.BYTES_PER_ELEMENT;
@@ -13,26 +12,25 @@
 }
 
 /**
- *
- * @param heapBytes
- * @constructor
+ * 
+ * @param {*} heapBytes 
  */
 function Free(heapBytes) {
     Module._free(heapBytes.byteOffset);
 }
+let _frame_bytes;
 
 /**
- *
- * @param image
- * @constructor
+ * 
+ * @param {*} image 
  */
 function ProcessFrame(image) {
     console.time('ProcessFrame')
-    this._frame_bytes = this.ToHeap(image.data);
+    _frame_bytes = ToHeap(image.data);
     let extractor = new Module.Extractor();
 
-    let zone = extractor.detectMrzZone(this._frame_bytes.byteOffset, image.width, image.height);
-    Free(this._frame_bytes);
+    let zone = extractor.detectMrzZone(_frame_bytes.byteOffset, image.width, image.height);
+    Free(_frame_bytes);
     let zoneToSend = {
         x: zone.get_x(),
         y: zone.get_y(),
