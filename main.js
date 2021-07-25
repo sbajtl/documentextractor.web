@@ -28,11 +28,8 @@ function calculateSize(srcSize, dstSize) {
  * @param video
  */
 function processVideo(video){
-    context.clearRect(0, 0, canvas.width, canvas.height);
-
     canvas.width = canvas.scrollWidth;
     canvas.height = canvas.scrollHeight;
-
     if (video.readyState === video.HAVE_ENOUGH_DATA) {
         var videoSize = { width: video.videoWidth, height: video.videoHeight };
         var canvasSize = { width: canvas.width, height: canvas.height };

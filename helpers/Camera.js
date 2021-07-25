@@ -8,16 +8,16 @@ class Camera {
         let streamContainer = document.createElement('div')
         this.video = document.createElement('video')
         this.video.id = "video"
-        this.video['style']['transform'] = 'scale(0.0001,0.0001)';
-        this.video['style']['position'] = 'fixed';
-        this.video['style']['bottom'] = '0px';
-        this.video['style']['right'] = '0px';
 
         // If we don't do this, the stream will not be played.
         // By the way, the play and pause controls work as usual
         // for streamed videos.
-        this.video.setAttribute('autoplay', '1')
-        this.video.setAttribute('playsinline', '1') // important for iPhones
+        //this.video.setAttribute('autoplay', '1')
+        //this.video.setAttribute('playsinline', '1') // important for iPhones
+
+        this.video.setAttribute('autoplay', '');
+        this.video.setAttribute('muted', '');
+        this.video.setAttribute('playsinline', '');
 
         // The video should fill out all of the canvas
         this.video.setAttribute('width', 1)

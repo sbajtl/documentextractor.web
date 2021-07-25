@@ -1,7 +1,7 @@
 var Module = {
     onRuntimeInitialized: () => {
         postMessage({'cmd': 'onRuntimeInitialized'});
-        
+
         addEventListener('message', onMessage);
 
         function onMessage(e) {
