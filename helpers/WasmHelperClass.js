@@ -18,18 +18,18 @@ class WasmHelper {
 
     ProcessFrame(image) {
         console.time('ProcessFrame')
-        if (!this._frame_bytes) {
+        // if (!this._frame_bytes) {
             this._frame_bytes = this.ToHeap(image.data);
-        } else if (this._frame_bytes.length !== image.data.length) {
-            this.Free(this._frame_bytes); // free heap memory
-            this._frame_bytes = this.ToHeap(image.data);
-        } else {
-            this._frame_bytes.set(image.data);
-        }
+        // } else if (this._frame_bytes.length !== image.data.length) {
+        //     this.Free(this._frame_bytes); // free heap memory
+        //     this._frame_bytes = this.ToHeap(image.data);
+        // } else {
+        //     this._frame_bytes.set(image.data);
+        // }
         
         let extractor = new Module.Extractor();
         let zone = extractor.detectMrzZone(this._frame_bytes.byteOffset, image.width, image.height);
-        //this.Free(this._frame_bytes);
+        this.Free(this._frame_bytes);
 
         //postMessage({'cmd': 'drawProcessedFrame', 'image': imageData},[imageData.data.buffer]);
         postMessage({'cmd': 'setDetectedZone', 'zone':
@@ -41,7 +41,7 @@ class WasmHelper {
             }
         });
         
-        Module.destroy(zone);
+        this.Free(zone);
         Module.destroy(extractor);
         console.timeEnd('ProcessFrame')
     }
