@@ -1,4 +1,3 @@
-let extractor;
 class WasmHelper {
 
     constructor() {
