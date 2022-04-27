@@ -2,7 +2,7 @@ var Module = {
     onRuntimeInitialized: () => {
         postMessage({'cmd': 'onRuntimeInitialized'});
 
-        let wasmHelper = new HelperModule.WasmHelper();
+        let wasmHelper = new WasmHelper();
 
         addEventListener('message', onMessage);
 
