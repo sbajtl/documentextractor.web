@@ -1,4 +1,5 @@
 let wasmWorker = new Worker('wasm-worker.js');
+let elapsedTime;
 let detectedZone;
 let cameraStopped = false;
 let image;
@@ -23,10 +24,6 @@ function calculateSize(srcSize, dstSize) {
     }
 }
 
-/***
- *
- * @param video
- */
 function processVideo(video){
     canvas.width = canvas.scrollWidth;
     canvas.height = canvas.scrollHeight;
@@ -52,14 +49,17 @@ function processVideo(video){
         context.stroke();
     }
 
+    if (elapsedTime) {
+        context.fillStyle = "green";
+        context.font = "24px verdana, sans-serif"
+        context.fillText(elapsedTime, 10, 30);
+    }
+
     if(cameraStopped){
         context.clearRect(0, 0, canvas.width, canvas.height);
     }
 }
 
-/***
- *
- */
 function startCamera(){
     if(!wasmWorker){
         wasmWorker = new Worker('wasm-worker.js');
@@ -71,9 +71,6 @@ function startCamera(){
     }
 }
 
-/***
- *
- */
 function stopCamera(){
     if(camera){
         camera.stopCamera();
@@ -85,26 +82,18 @@ function stopCamera(){
     }
 }
 
-/***
- *
- * @returns {Promise<void>}
- */
 async function onRuntimeInitialized() {
     console.log("Document Extractor Initialized!")
 }
 
-/***
- *
- * @param zone
- */
 function setDetectedZone(zone){
-    //console.log("Detected zone", zone)
     detectedZone = zone
 }
 
-/***
- *
- */
+function setElapsedTime(time){
+    elapsedTime = time;
+}
+
 function setListeners(){
     wasmWorker.addEventListener('message', async (e) => {
         switch(e.data.cmd) {
@@ -113,6 +102,9 @@ function setListeners(){
                 break;
             case 'setDetectedZone':
                 setDetectedZone(e.data.zone);
+                break;
+            case 'timeFinished':
+                setElapsedTime(e.data.elapsedTime)
                 break;
         }
     }, false);
