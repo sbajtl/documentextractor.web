@@ -16,4 +16,4 @@ var Module = {
     }
     };
 
-importScripts('DocumentExtractor.js', '../helpers/WasmHelperClass.js');
+importScripts('DocumentExtractor.js', '../helpers/WasmHelper.js');
